@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.example.a23.powerinsta">
+
+    <uses-sdk tools:overrideLibrary="co.ronash.pushe" />
+
+    <permission
+        android:name="com.example.a23.powerinsta.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.example.a23.powerinsta.permission.C2D_MESSAGE" />
+    <!-- Optional permissions -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:name=".MyApplication"
+        android:excludeFromRecents="true"
+        android:allowBackup="true"
+        android:icon="@drawable/a"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/a"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <service
+            android:name=".MyPushListener"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="co.ronash.pushe.RECEIVE"/>
+            </intent-filter>
+        </service>
+
+        <receiver android:name="co.ronash.pushe.receiver.UpdateReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REPLACED" />
+
+                <data
+                    android:path="com.example.a23.powerinsta"
+                    android:scheme="package" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.google.android.gms.gcm.GcmReceiver"
+            android:exported="true"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+                <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+
+                <category android:name="com.example.a23.powerinsta" />
+            </intent-filter>
+        </receiver>
+
+        <meta-data
+            android:name="co.ronash.pushe.token"
+            android:value="PUSHE_487031311857" />
+        <meta-data
+            android:name="co.ronash.pushe.cr"
+            android:value="aHR0cDovL2U3NWZmOWVmNmU4NzQ2ODNhNjg2ZTBiYzc3ZmZjYzhhOmY3YTU1YWZjNmEyNTQ3YzJhMDY0OWY0OTQ5ZGZlOTJiQGNhLnB1c2hlLmlyLzc0MTQ=" />
+
+        <activity android:name=".Test"
+            android:theme="@style/Activity"
+            android:excludeFromRecents="true"></activity>
+    </application>
+
+</manifest>
